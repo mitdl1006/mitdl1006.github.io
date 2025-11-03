@@ -32,6 +32,11 @@
   --site-title-color: rgb(113 113 113);
   --site-subtitle-color: #717171;
   --sidebar-bg: #f6f8fa;
+  --sidebar-bg-image: url('/assets/img/sidebar/light-background.png');
+  /* Fill sidebar width; keep aspect ratio. Increase % if still small (e.g., 120% auto) */
+  --sidebar-bg-size: 100% auto;
+  --sidebar-bg-position: top center;
+  --sidebar-bg-attachment: scroll;
   --sidebar-border-color: #efefef;
   --sidebar-muted-color: #545454;
   --sidebar-active-color: #1d1d1d;
