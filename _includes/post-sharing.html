@@ -3,6 +3,15 @@
 <div class="share-wrapper d-flex align-items-center">
   <span class="share-label text-muted">{{ site.data.locales[include.lang].post.share }}</span>
   <span class="share-icons">
+    {%- assign print_label = site.data.locales[include.lang].post.button.print_pdf.title -%}
+    {%- if print_label == null or print_label == '' -%}
+      {%- case include.lang -%}
+        {%- when 'ko' -%}
+          {%- assign print_label = 'PDF로 저장 또는 인쇄' -%}
+        {%- else -%}
+          {%- assign print_label = 'Print or save as PDF' -%}
+      {%- endcase -%}
+    {%- endif -%}
     {% capture title %}{{ page.title }} - {{ site.title }}{% endcapture %}
     {% assign title = title | uri_escape %}
     {% assign url = page.url | absolute_url | url_encode %}
@@ -47,6 +56,17 @@
       data-title-succeed="{{ site.data.locales[include.lang].post.button.share_link.succeed }}"
     >
       <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+
+    <button
+      type="button"
+      class="btn small js-post-print"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="{{ print_label | escape }}"
+      aria-label="{{ print_label | escape }}"
+    >
+      <i class="fa-fw fas fa-print pe-none fs-6"></i>
     </button>
   </span>
 </div>

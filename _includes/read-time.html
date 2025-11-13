@@ -17,18 +17,38 @@
   {{- site.data.locales[include.lang].post.read_time.prompt -}}
 {% endcapture %}
 
+{% assign read_unit = site.data.locales[include.lang].post.read_time.unit %}
+{% assign words_label = site.data.locales[include.lang].post.words %}
+{% assign progress_label = site.data.locales[include.lang].post.read_time.progress | default: 'read' %}
+{% if progress_label == 'read' and include.lang == 'ko' %}
+  {% assign progress_label = '읽음' %}
+{% endif %}
+
 <!-- return element -->
 <span
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
   title="{{ words }} {{ site.data.locales[include.lang].post.words }}"
+  data-read-minutes="{{ read_time }}"
+  data-read-words="{{ words }}"
+  data-read-progress-label="{{ progress_label }}"
 >
-  <em>
-    {{- read_time -}}
-    {{ ' ' }}
-    {{- site.data.locales[include.lang].post.read_time.unit -}}
-  </em>
+  <span class="readtime__value">
+    <em class="readtime__minutes">
+      {{- read_time -}}
+      {{ ' ' }}
+      {{- read_unit -}}
+    </em>
+    <span class="readtime__separator" aria-hidden="true"> • </span>
+    <span class="readtime__words">
+      {{- words -}}
+      {{ ' ' }}
+      {{- words_label -}}
+    </span>
+    <span class="readtime__separator readtime__progress-separator d-none" aria-hidden="true"> • </span>
+    <span class="readtime__progress d-none" aria-live="polite"></span>
+  </span>
   {%- if include.prompt -%}
     {%- assign _prompt_words = read_prompt | number_of_words: 'auto' -%}
     {%- unless _prompt_words > 1 -%}{{ ' ' }}{%- endunless -%}
