@@ -103,3 +103,23 @@
   <!-- .sidebar-bottom -->
 </aside>
 <!-- #sidebar -->
+
+{% assign collapse_label = 'Collapse sidebar' %}
+{% assign collapse_expand_label = 'Expand sidebar' %}
+{% if include.lang == 'ko' %}
+  {% assign collapse_label = '사이드바 접기' %}
+  {% assign collapse_expand_label = '사이드바 펼치기' %}
+{% endif %}
+
+<button
+  type="button"
+  id="sidebar-collapse"
+  class="sidebar-collapse-btn"
+  aria-pressed="false"
+  aria-label="{{ collapse_label }}"
+  title="{{ collapse_label }}"
+  data-collapse-label="{{ collapse_label }}"
+  data-expand-label="{{ collapse_expand_label }}"
+>
+  <i class="fas fa-angles-left fa-fw" aria-hidden="true"></i>
+</button>

@@ -16,6 +16,7 @@ $sidebar-display: 'sidebar-display'; /* the attribute for sidebar display */
   height: 100%;
   overflow-y: auto;
   width: v.$sidebar-width;
+  transform: translateX(0);
   background: var(--sidebar-bg);
   background-image: var(--sidebar-bg-image, none);
   background-position: var(--sidebar-bg-position, center);
@@ -31,6 +32,10 @@ $sidebar-display: 'sidebar-display'; /* the attribute for sidebar display */
   /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @include bp.lg {
+    transition: transform 0.35s ease, opacity 0.25s ease;
   }
 
   @include bp.lt(bp.get(lg)) {
@@ -253,6 +258,69 @@ $sidebar-display: 'sidebar-display'; /* the attribute for sidebar display */
     }
   } /* .sidebar-bottom */
 } /* #sidebar */
+
+@include bp.lg {
+  body[data-sidebar-collapsed='true'] {
+    #sidebar {
+      transform: translateX(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
+
+#sidebar-collapse {
+  position: fixed;
+  top: 50%;
+  left: calc(#{v.$sidebar-width} - 0.75rem);
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: none;
+  background-color: var(--sidebar-btn-bg);
+  color: var(--sidebar-btn-color);
+  box-shadow: var(--sidebar-border-color) 0 0 0 1px, 0 6px 18px rgb(0 0 0 / 18%);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1300;
+  transition: background-color 0.2s ease, color 0.2s ease, left 0.3s ease;
+
+  @include bp.lg {
+    display: inline-flex;
+  }
+
+  @include bp.xxxl {
+    left: calc(#{v.$sidebar-width-large} - 0.75rem);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--sidebar-hover-bg);
+    color: var(--sidebar-active-color);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sidebar-active-color);
+    outline-offset: 2px;
+  }
+
+  i {
+    transition: transform 0.3s ease;
+  }
+
+  &.is-collapsed i {
+    transform: rotate(180deg);
+  }
+}
+
+@include bp.lg {
+  body[data-sidebar-collapsed='true'] #sidebar-collapse {
+    left: 0.75rem;
+  }
+}
 
 [#{$sidebar-display}] {
   #main-wrapper {

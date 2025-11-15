@@ -23,6 +23,14 @@
 {% if progress_label == 'read' and include.lang == 'ko' %}
   {% assign progress_label = '읽음' %}
 {% endif %}
+{% assign eta_label = site.data.locales[include.lang].post.read_time.eta | default: 'Finish by' %}
+{% if eta_label == 'Finish by' and include.lang == 'ko' %}
+  {% assign eta_label = '완독 예상' %}
+{% endif %}
+{% assign remaining_label = site.data.locales[include.lang].post.read_time.remaining | default: 'remaining' %}
+{% if remaining_label == 'remaining' and include.lang == 'ko' %}
+  {% assign remaining_label = '남음' %}
+{% endif %}
 
 <!-- return element -->
 <span
@@ -33,6 +41,8 @@
   data-read-minutes="{{ read_time }}"
   data-read-words="{{ words }}"
   data-read-progress-label="{{ progress_label }}"
+  data-read-eta-label="{{ eta_label }}"
+  data-read-remaining-label="{{ remaining_label }}"
 >
   <span class="readtime__value">
     <em class="readtime__minutes">
@@ -48,6 +58,8 @@
     </span>
     <span class="readtime__separator readtime__progress-separator d-none" aria-hidden="true"> • </span>
     <span class="readtime__progress d-none" aria-live="polite"></span>
+    <span class="readtime__separator readtime__eta-separator d-none" aria-hidden="true"> • </span>
+    <span class="readtime__eta d-none" aria-live="polite"></span>
   </span>
   {%- if include.prompt -%}
     {%- assign _prompt_words = read_prompt | number_of_words: 'auto' -%}

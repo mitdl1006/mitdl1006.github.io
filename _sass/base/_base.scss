@@ -46,6 +46,45 @@ body {
   font-family: v.$font-family-base;
 }
 
+body[data-reading-mode='on'] {
+  #sidebar {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #main-wrapper {
+    margin-left: 0 !important;
+
+    > .container {
+      max-width: min(100%, 1100px);
+      padding-inline: clamp(1rem, 2vw, 2.5rem);
+    }
+  }
+
+  #main-wrapper > .container > .row > main {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  #panel-wrapper,
+  #toc-solo-trigger {
+    display: none !important;
+  }
+
+  #tail-wrapper {
+    padding-right: 0 !important;
+  }
+}
+
+body[data-sidebar-collapsed='true'] {
+  @include bp.lg {
+    #main-wrapper {
+      margin-left: 0 !important;
+    }
+  }
+}
+
 #scroll-progress-container {
   position: fixed;
   top: 0;
@@ -53,7 +92,7 @@ body {
   width: 100%;
   height: 4px;
   z-index: 1100;
-  pointer-events: none;
+  pointer-events: auto;
   background: transparent;
 }
 
@@ -65,6 +104,67 @@ body {
   background: linear-gradient(90deg, var(--link-color), var(--toc-highlight));
   box-shadow: 0 0 6px rgb(0 0 0 / 20%);
   transition: transform 0.15s ease-out;
+  pointer-events: none;
+}
+
+#scroll-progress-tooltip {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  right: 0.75rem;
+  transform: translateY(-0.35rem);
+  background: color-mix(in srgb, var(--card-bg) 85%, transparent);
+  color: var(--text-color);
+  border-radius: 999px;
+  padding: 0.1rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+#scroll-progress-tooltip.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#scroll-progress-pill {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom) + 1.5rem);
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: color-mix(in srgb, var(--card-bg) 90%, transparent);
+  color: var(--text-color);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 20%);
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 1050;
+}
+
+#scroll-progress-pill .pill-percent {
+  font-variant-numeric: tabular-nums;
+}
+
+#scroll-progress-pill .pill-remaining {
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+#scroll-progress-pill.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 h1.dynamic-title {
