@@ -14,14 +14,13 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: "!오토파일럿" # the main title
+title: "권혁준" # the main title
 
 tagline: 코딩 의존성에 AI가 있는 개발자 # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   파이썬으로 코딩을 처음 시작한 개발자 입니다.
   강력한 타입 시스템을 갖추고 컴파일 되는 언어를 배울 필요성을 느끼고 있습니다.
-  앞으로의 계획은 Rust 언어를 배우는 것입니다.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
@@ -233,7 +232,6 @@ jekyll-archives:
 mermaid: true
 
 plugins:
-  - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
 
